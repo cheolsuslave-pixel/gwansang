@@ -1,7 +1,6 @@
 (function () {
-    // 나스에 DSM 리버스 프록시 + Let's Encrypt 인증서 설정을 마친 뒤,
-    // 실제로 접속되는 HTTPS 주소로 아래 값을 바꿔주세요. (예: 'https://gwansang.내아이디.synology.me')
-    const API_BASE = 'https://YOUR-NAS-DOMAIN';
+    // AI 분석 API (Vercel 서버리스 함수)
+    const API_BASE = 'https://gwansang-api.vercel.app';
 
     const RESULTS = [
         // ── 지배적 ──
