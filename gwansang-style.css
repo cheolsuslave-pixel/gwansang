@@ -222,6 +222,53 @@
     border-left: 4px solid var(--accent, #8B5A7C);
 }
 
+/* 세부 성향 */
+.gs-secondary-label {
+    text-align: center;
+    color: #999;
+    font-size: 0.85rem;
+    margin: 20px 0 10px 0;
+}
+
+.gs-secondary-list {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.gs-secondary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+    text-align: center;
+}
+
+.gs-secondary-badge {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: contain;
+    background: #f8f9fa;
+    border: 2px solid var(--accent, #8B5A7C);
+    padding: 6px;
+    margin-bottom: 6px;
+}
+
+.gs-secondary-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.gs-secondary-note {
+    font-size: 0.75rem;
+    color: #999;
+    line-height: 1.4;
+}
+
 .gs-closing {
     background: #f8f9fa;
     border: 2px dashed #ddd;

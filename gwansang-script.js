@@ -464,6 +464,7 @@
                 tagline: data.tagline || base.tagline,
                 description: data.description || base.description,
                 sections: (data.sections && data.sections.length ? data.sections : base.sections),
+                secondary: data.secondary || [],
                 closingMessage: data.closingMessage || base.closingMessage,
             };
 
@@ -501,6 +502,34 @@
             item.appendChild(title);
             item.appendChild(content);
             container.appendChild(item);
+        });
+
+        const secondaryList = document.getElementById('secondaryList');
+        secondaryList.innerHTML = '';
+        (result.secondary || []).forEach((sec) => {
+            const secType = RESULTS.find((r) => r.key === sec.key);
+            if (!secType) return;
+
+            const item = document.createElement('div');
+            item.className = 'gs-secondary-item';
+
+            const badge = document.createElement('img');
+            badge.className = 'gs-secondary-badge';
+            badge.src = 'images/' + secType.key + '.png';
+            badge.alt = '';
+
+            const name = document.createElement('div');
+            name.className = 'gs-secondary-name';
+            name.textContent = secType.name + '상';
+
+            const note = document.createElement('div');
+            note.className = 'gs-secondary-note';
+            note.textContent = sec.note || '';
+
+            item.appendChild(badge);
+            item.appendChild(name);
+            item.appendChild(note);
+            secondaryList.appendChild(item);
         });
 
         document.getElementById('closingMessage').textContent = result.closingMessage;
