@@ -1,0 +1,385 @@
+/* 폰트 임포트 */
+@font-face {
+    font-family: 'Cafe24Dangdanghae';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.2/Cafe24Dangdanghae.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HakgyoansimWoojuR';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimWoojuR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'HakgyoansimWoojuR', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #93939B 0%, #93939B 100%);
+    min-height: 100vh;
+    color: #333;
+    padding: 20px;
+}
+
+/* 컨테이너 */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+/* 헤더 */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-family: 'Cafe24Dangdanghae', cursive;
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-weight: normal;
+    letter-spacing: 2px;
+}
+
+
+/* 메인 카드 */
+.main-card {
+    background: white;
+    border-radius: 15px;
+    padding: 0;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    border: 8px solid #8B5A7C;
+}
+
+.card-content {
+    padding: 40px;
+}
+
+/* 폼 그룹 */
+.form-group {
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-group label {
+    font-family: 'HakgyoansimWoojuR', sans-serif;
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
+    min-width: 100px;
+}
+
+/* 드롭다운 */
+.dropdown {
+    position: relative;
+    min-width: 200px;
+}
+
+.dropdown select {
+    font-family: 'HakgyoansimWoojuR', sans-serif;
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+.dropdown select option {
+    font-family: 'HakgyoansimWoojuR', sans-serif;
+}
+
+.dropdown select:focus {
+    outline: none;
+    border-color: #8B5A7C;
+    box-shadow: 0 0 0 3px rgba(139, 90, 124, 0.1);
+}
+
+/* 둘다 선택 시 문항수 안내 */
+.testmany-notice {
+    display: none;
+    background: #fff3f0;
+    border-left: 4px solid #8B5A7C;
+    color: #8B5A7C;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-top: -10px;
+    margin-bottom: 25px;
+}
+
+.testmany-notice.visible {
+    display: block;
+}
+
+/* 설명 제목 */
+.description-title {
+    color: #8B5A7C;
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 30px 0 15px 0;
+    font-family: 'HakgyoansimWoojuR', sans-serif;
+}
+
+/* 설명 섹션 */
+.description {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    line-height: 1.8;
+    font-size: 0.95rem;
+    color: #555;
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #DBE7DD #e9ecef;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 커스텀 스크롤바 (Webkit 브라우저용) */
+.description::-webkit-scrollbar {
+    width: 8px;
+}
+
+.description::-webkit-scrollbar-track {
+    background: #e9ecef;
+    border-radius: 10px;
+}
+
+.description::-webkit-scrollbar-thumb {
+    background: #DBE7DD;
+    border-radius: 10px;
+}
+
+.description::-webkit-scrollbar-thumb:hover {
+    background: #C5D3C1;
+}
+
+.description h3 {
+    color: #8B5A7C;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.description ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.description li {
+    margin-bottom: 12px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.description li:before {
+    content: "•";
+    color: #8B5A7C;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* 버튼 컨테이너 */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* 버튼 스타일 */
+.btn {
+    font-family: 'HakgyoansimWoojuR', sans-serif;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+}
+
+.btn-primary {
+    background: linear-gradient(180deg, #4C5B8C 0%, #3F4454 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(180deg, #3C4B7C 0%, #2F3444 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(76, 91, 140, 0.3), inset 2px 3px 3px -2px rgba(243, 252, 255, 0.8);
+}
+
+.btn-secondary {
+    background: linear-gradient(180deg, #4C5B8C 0%, #3F4454 100%);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(180deg, #3C4B7C 0%, #2F3444 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(76, 91, 140, 0.3), inset 2px 3px 3px -2px rgba(243, 252, 255, 0.8);
+}
+
+/* 면책조항 */
+.disclaimer {
+    font-size: 0.85rem;
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+    line-height: 1.5;
+}
+
+/* 성향 해설 리스트 */
+.orientation-list {
+    display: none;
+}
+
+.result-item {
+    background: #f8f9fa;
+    margin: 15px 0;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 5px solid #8B5A7C;
+}
+
+.result-item h4 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-family: 'HakgyoansimWoojuR', sans-serif;
+}
+
+.result-item p {
+    color: #555;
+    line-height: 1.6;
+    font-family: 'HakgyoansimWoojuR', sans-serif;
+}
+
+.site-footer {
+    margin-top: 50px;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.credits {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.credit-item {
+    color: white;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.credit-title {
+    opacity: 0.7;
+    margin-right: 5px;
+}
+
+.credit-name {
+    font-weight: 600;
+}
+
+.copyright {
+    color: white;
+    opacity: 0.5;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 0;
+    }
+
+    .main-card {
+        margin: 0 10px;
+    }
+
+    .card-content {
+        padding: 25px;
+    }
+
+    .header h1 {
+        font-family: 'Cafe24Dangdanghae', cursive;
+        font-size: 2rem;
+    }
+
+    .form-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .dropdown {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .description-title {
+        margin: 25px 0 10px 0;
+        font-size: 1rem;
+    }
+
+    .description {
+        padding: 20px;
+        max-height: 180px;
+    }
+
+    .description::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .result-item {
+        padding: 15px;
+        margin: 10px 0;
+    }
+
+    .result-item h4 {
+        font-size: 1.1rem;
+    }
+
+    .result-item p {
+        font-size: 0.9rem;
+    }
+}
