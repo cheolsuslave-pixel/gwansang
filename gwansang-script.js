@@ -1,4 +1,8 @@
 (function () {
+    // 나스에 DSM 리버스 프록시 + Let's Encrypt 인증서 설정을 마친 뒤,
+    // 실제로 접속되는 HTTPS 주소로 아래 값을 바꿔주세요. (예: 'https://gwansang.내아이디.synology.me')
+    const API_BASE = 'https://YOUR-NAS-DOMAIN';
+
     const RESULTS = [
         // ── 지배적 ──
         {
@@ -256,7 +260,6 @@
     const changePhotoBtn = document.getElementById('changePhotoBtn');
 
     let selectedDataUrl = null;
-    let lastIndex = -1;
 
     const BOX_SIZE = 280;
     const OUTPUT_SIZE = 800;
@@ -418,24 +421,58 @@
         analyzeBtn.disabled = true;
     }
 
-    analyzeBtn.addEventListener('click', () => {
+    analyzeBtn.addEventListener('click', async () => {
         if (!selectedDataUrl) return;
 
         uploadSection.style.display = 'none';
         loadingSection.style.display = 'block';
 
-        setTimeout(() => {
-            let index = Math.floor(Math.random() * RESULTS.length);
-            if (RESULTS.length > 1 && index === lastIndex) {
-                index = (index + 1) % RESULTS.length;
-            }
-            lastIndex = index;
+        const commaIndex = selectedDataUrl.indexOf(',');
+        const header = selectedDataUrl.slice(0, commaIndex);
+        const base64 = selectedDataUrl.slice(commaIndex + 1);
+        const mediaTypeMatch = header.match(/data:(.*);base64/);
+        const mediaType = mediaTypeMatch ? mediaTypeMatch[1] : 'image/jpeg';
 
-            const result = RESULTS[index];
+        try {
+            const res = await fetch(API_BASE + '/api/gwansang', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image: base64, mediaType }),
+            });
+            const data = await res.json();
+
             loadingSection.style.display = 'none';
+
+            if (!res.ok || data.error) {
+                alert(data.error || 'AI 분석에 실패했어요. 다시 시도해주세요.');
+                uploadSection.style.display = 'block';
+                return;
+            }
+
+            if (data.hasFace === false) {
+                alert(data.description || '얼굴을 찾지 못했어요. 다른 사진으로 시도해주세요.');
+                uploadSection.style.display = 'block';
+                return;
+            }
+
+            const base = RESULTS.find((r) => r.key === data.key) || RESULTS[0];
+            const result = {
+                key: base.key,
+                name: base.name,
+                accent: base.accent,
+                tagline: data.tagline || base.tagline,
+                description: data.description || base.description,
+                sections: (data.sections && data.sections.length ? data.sections : base.sections),
+                closingMessage: data.closingMessage || base.closingMessage,
+            };
+
             renderResult(result);
             resultSection.style.display = 'block';
-        }, 1600);
+        } catch (err) {
+            loadingSection.style.display = 'none';
+            uploadSection.style.display = 'block';
+            alert('서버에 연결할 수 없어요. 잠시 후 다시 시도해주세요.');
+        }
     });
 
     function renderResult(result) {

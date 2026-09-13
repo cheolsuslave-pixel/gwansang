@@ -1,1 +1,11 @@
+# 이 저장소는 프런트엔드(정적 파일)만 GitHub Pages로 공개 배포합니다.
+# 서버 코드와 키는 나스에만 두고, 여기에는 절대 올리지 않습니다.
+server.js
+package.json
+package-lock.json
+node_modules/
+Dockerfile
+docker-compose.yml
+.env
+.env.*
 .DS_Store
