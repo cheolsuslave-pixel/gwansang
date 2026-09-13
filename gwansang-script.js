@@ -264,7 +264,9 @@
     const OUTPUT_SIZE = 800;
     let crop = null; // { naturalW, naturalH, baseScale, scale, x, y }
 
-    dropzone.addEventListener('click', () => fileInput.click());
+    // dropzone은 <label for="fileInput">이라 클릭하면 브라우저가 알아서 파일 선택창을 열어줍니다.
+    // (JS로 강제 클릭시키는 방식은 카카오톡/인스타/트위터 인앱 브라우저에서 막히는 경우가 많아서
+    // 네이티브 label 연결 방식으로 바꿨습니다.)
 
     dropzone.addEventListener('dragover', (e) => {
         e.preventDefault();
