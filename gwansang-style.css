@@ -235,9 +235,33 @@
 }
 
 @media (max-width: 768px) {
+    .gs-intro {
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+    }
+
     .gs-dropzone {
         padding: 20px 15px;
         min-height: 150px;
+    }
+
+    .gs-dropzone-icon {
+        font-size: 2rem;
+    }
+
+    .gs-crop-hint {
+        font-size: 0.82rem;
+        padding: 0 10px;
+    }
+
+    .gs-crop-box,
+    .gs-zoom-range {
+        width: 240px;
+    }
+
+    .gs-confirmed-img {
+        width: 140px;
+        height: 140px;
     }
 
     .gs-photo-wrap {
@@ -248,9 +272,65 @@
     .gs-result-photo {
         width: 150px;
         height: 150px;
+        border-width: 5px;
+    }
+
+    .gs-result-badge {
+        width: 54px;
+        height: 54px;
+        right: -4px;
+        bottom: -4px;
     }
 
     .gs-type-name {
         font-size: 1.5rem;
+    }
+
+    .gs-tagline {
+        font-size: 0.88rem;
+    }
+
+    .gs-overall,
+    .gs-closing {
+        font-size: 0.9rem;
+    }
+}
+
+/* 아주 좁은 화면 (구형 iPhone SE 등 320~380px) */
+@media (max-width: 380px) {
+    .header h1 {
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+        word-break: keep-all;
+    }
+
+    .gs-crop-box,
+    .gs-zoom-range {
+        width: 200px;
+    }
+
+    .gs-confirmed-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .gs-photo-wrap {
+        width: 120px;
+        height: 120px;
+    }
+
+    .gs-result-photo {
+        width: 120px;
+        height: 120px;
+        border-width: 4px;
+    }
+
+    .gs-result-badge {
+        width: 44px;
+        height: 44px;
+    }
+
+    .gs-type-name {
+        font-size: 1.3rem;
     }
 }
