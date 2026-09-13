@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 타로</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="tarot-style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>AI 타로</h1>
+        </div>
+
+        <div class="main-card">
+            <div class="card-content">
+
+                <div id="questionSection">
+                    <p class="tr-intro">
+                        궁금한 게 있으면 물어보세요.<br>
+                        없으면 그냥 오늘의 흐름을 봐드릴게요!
+                    </p>
+
+                    <div class="tr-question-wrap">
+                        <textarea id="questionInput" class="tr-question-input" rows="3" maxlength="200"
+                            placeholder="예: 이번 주 연애운은 어떨까요? (안 적어도 돼요)"></textarea>
+                    </div>
+
+                    <div class="description" style="margin-top:20px;">
+                        <h3>참고사항</h3>
+                        <ul>
+                            <li>이 타로는 재미로 보는 콘텐츠이며, 실제 미래를 예측하지 않아요.</li>
+                            <li>질문/카드 내용은 AI 리딩 생성 목적으로만 서버에 전송되며 저장하지 않아요.</li>
+                            <li>중요한 결정은 본인의 판단을 우선해주세요.</li>
+                        </ul>
+                    </div>
+
+                    <div class="button-container">
+                        <button class="btn btn-primary" id="goToDrawBtn">카드 뽑으러 가기</button>
+                    </div>
+                </div>
+
+                <div id="drawSection" style="display:none;">
+                    <p class="tr-intro">마음에 드는 카드를 한 장 골라주세요</p>
+
+                    <div class="tr-spread" id="cardSpread"></div>
+                </div>
+
+                <div id="loadingSection" style="display:none;">
+                    <div class="tr-spinner"></div>
+                    <p class="tr-loading-text">카드를 읽는 중...</p>
+                </div>
+
+                <div id="resultSection" style="display:none;">
+                    <div class="tr-result-card">
+                        <div class="tr-card-name" id="resultCardName"></div>
+                        <div class="tr-headline" id="resultHeadline"></div>
+                    </div>
+
+                    <div class="result-item">
+                        <h4>리딩</h4>
+                        <p id="resultMessage"></p>
+                    </div>
+
+                    <div class="result-item">
+                        <h4>조언</h4>
+                        <p id="resultAdvice"></p>
+                    </div>
+
+                    <div class="result-item" id="cautionItem" style="display:none;">
+                        <h4>주의할 점</h4>
+                        <p id="resultCaution"></p>
+                    </div>
+
+                    <div class="tr-closing" id="resultClosing"></div>
+
+                    <div class="button-container">
+                        <button class="btn btn-secondary" id="retryBtn">다시 보기</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="disclaimer" style="color:white; margin-top:20px;">
+            본 타로는 재미로 즐기는 콘텐츠이며 실제 운세와 무관합니다.
+        </div>
+        <div style="text-align:center; margin-top:12px;">
+            <a href="index.html" style="color:white; opacity:0.85; font-size:0.9rem; text-decoration:underline;">🪞 관상 테스트도 보러가기</a>
+        </div>
+    </div>
+
+    <script src="tarot-script.js"></script>
+</body>
+
+<footer class="site-footer">
+    <div class="copyright">
+        © 2026 AI Tarot. All rights reserved.
+    </div>
+</footer>
+
+</html>
