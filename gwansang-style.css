@@ -1,0 +1,256 @@
+/* 관상 테스트 전용 스타일 */
+
+/* style.css는 이 폰트들을 외부(jsdelivr) CDN에서 불러오는데, 그러면 html2canvas가
+   결과 카드를 캡처할 때 캔버스가 "오염(tainted)"되어 이미지 저장이 실패합니다.
+   그래서 캡처 영역에서만 로컬로 내려받은 폰트 파일을 같은 출처(same-origin)로 다시 선언해
+   디자인은 그대로 유지하면서 저장 기능도 정상 동작하게 합니다. */
+@font-face {
+    font-family: 'Cafe24Dangdanghae';
+    src: url('fonts/Cafe24Dangdanghae.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HakgyoansimWoojuR';
+    src: url('fonts/HakgyoansimWoojuR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.gs-intro {
+    text-align: center;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    font-size: 1.02rem;
+}
+
+.gs-dropzone {
+    border: 2px dashed #c8b6d4;
+    border-radius: 12px;
+    background: #faf7fb;
+    padding: 30px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 20px;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gs-dropzone:hover,
+.gs-dropzone.dragover {
+    border-color: #8B5A7C;
+    background: #f5edf4;
+}
+
+.gs-dropzone-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.gs-dropzone-text p {
+    color: #777;
+    line-height: 1.6;
+}
+
+/* 사진 자르기 */
+.gs-crop-section {
+    margin-bottom: 20px;
+}
+
+.gs-crop-hint {
+    text-align: center;
+    color: #8B5A7C;
+    font-size: 0.88rem;
+    margin-bottom: 14px;
+}
+
+.gs-crop-box {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto 16px auto;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 3px solid #8B5A7C;
+    background: #222;
+    cursor: grab;
+    touch-action: none;
+}
+
+.gs-crop-box.dragging {
+    cursor: grabbing;
+}
+
+.gs-crop-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    user-select: none;
+    pointer-events: none;
+    max-width: none;
+}
+
+.gs-zoom-range {
+    display: block;
+    width: 280px;
+    max-width: 100%;
+    margin: 0 auto 20px auto;
+    accent-color: #8B5A7C;
+}
+
+.gs-confirmed-preview {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.gs-confirmed-img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #8B5A7C;
+    display: block;
+    margin: 0 auto 12px auto;
+}
+
+.gs-change-photo {
+    background: none;
+    border: none;
+    color: #8B5A7C;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* 로딩 */
+#loadingSection {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.gs-spinner {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 20px auto;
+    border: 5px solid #eee0ec;
+    border-top-color: #8B5A7C;
+    border-radius: 50%;
+    animation: gs-spin 0.9s linear infinite;
+}
+
+@keyframes gs-spin {
+    to { transform: rotate(360deg); }
+}
+
+.gs-loading-text {
+    color: #8B5A7C;
+    font-size: 1.05rem;
+}
+
+/* 결과 카드 */
+#captureArea {
+    background: #ffffff;
+    padding: 10px 0 5px 0;
+}
+
+.gs-result-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.gs-photo-wrap {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 18px auto;
+}
+
+.gs-result-photo {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 6px solid var(--accent, #8B5A7C);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    display: block;
+}
+
+.gs-result-badge {
+    position: absolute;
+    right: -6px;
+    bottom: -6px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid var(--accent, #8B5A7C);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    object-fit: contain;
+    padding: 4px;
+}
+
+.gs-type-name {
+    font-family: 'Cafe24Dangdanghae', cursive;
+    font-size: 1.8rem;
+    color: var(--accent, #8B5A7C);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.gs-tagline {
+    color: #999;
+    font-size: 0.95rem;
+}
+
+.gs-overall {
+    text-align: center;
+    color: #555;
+    line-height: 1.7;
+    font-size: 0.98rem;
+    margin: 0 0 20px 0;
+}
+
+#sectionsContainer .result-item {
+    border-left: 4px solid var(--accent, #8B5A7C);
+}
+
+.gs-closing {
+    background: #f8f9fa;
+    border: 2px dashed #ddd;
+    padding: 18px 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    line-height: 1.8;
+    color: #666;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .gs-dropzone {
+        padding: 20px 15px;
+        min-height: 150px;
+    }
+
+    .gs-photo-wrap {
+        width: 150px;
+        height: 150px;
+    }
+
+    .gs-result-photo {
+        width: 150px;
+        height: 150px;
+    }
+
+    .gs-type-name {
+        font-size: 1.5rem;
+    }
+}
