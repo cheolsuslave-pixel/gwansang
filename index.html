@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="gwansang-style.css">
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2634105661638311"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -67,8 +69,15 @@
                 </div>
 
                 <div id="loadingSection" style="display:none;">
+                    <p class="gs-ad-label">광고를 보고 결과를 확인해주세요</p>
+                    <div class="gs-ad-slot" id="adSlotContainer"></div>
+
                     <div class="gs-spinner"></div>
-                    <p class="gs-loading-text">관상을 살펴보는 중...</p>
+                    <p class="gs-loading-text" id="loadingText">관상을 분석하는 중...</p>
+
+                    <div class="button-container">
+                        <button class="btn btn-primary" id="revealBtn" disabled>결과 확인하기</button>
+                    </div>
                 </div>
 
                 <div id="resultSection" style="display:none;">

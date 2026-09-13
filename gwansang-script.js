@@ -248,6 +248,14 @@
     const saveImageBtn = document.getElementById('saveImageBtn');
     const overallText = document.getElementById('overallText');
 
+    const adSlotContainer = document.getElementById('adSlotContainer');
+    const revealBtn = document.getElementById('revealBtn');
+    const loadingText = document.getElementById('loadingText');
+    const AD_WAIT_SECONDS = 5;
+    // TODO: AdSense에서 실제 광고 유닛을 만들고 슬롯 ID를 여기에 넣어주세요.
+    // (AdSense 대시보드 → 광고 단위 → 디스플레이 광고 → 생성 후 나오는 data-ad-slot 값)
+    const AD_SLOT = 'YOUR_AD_SLOT_ID';
+
     const cropSection = document.getElementById('cropSection');
     const cropBox = document.getElementById('cropBox');
     const cropImage = document.getElementById('cropImage');
@@ -422,11 +430,70 @@
         analyzeBtn.disabled = true;
     }
 
+    let timerDone = false;
+    let apiDone = false;
+    let apiResult = null;
+    let apiErrorMessage = null;
+    let countdownInterval = null;
+
+    function injectAd() {
+        adSlotContainer.innerHTML = '';
+        if (AD_SLOT === 'YOUR_AD_SLOT_ID') return; // 슬롯 ID 미설정 시 광고 영역을 비워둠
+
+        const ins = document.createElement('ins');
+        ins.className = 'adsbygoogle';
+        ins.style.display = 'block';
+        ins.setAttribute('data-ad-client', 'ca-pub-2634105661638311');
+        ins.setAttribute('data-ad-slot', AD_SLOT);
+        ins.setAttribute('data-ad-format', 'auto');
+        ins.setAttribute('data-full-width-responsive', 'true');
+        adSlotContainer.appendChild(ins);
+
+        try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+            // 광고 차단기 등으로 실패해도 결과 확인 흐름은 그대로 진행되게 둡니다.
+        }
+    }
+
+    function updateRevealButton() {
+        if (!timerDone) return; // 카운트다운 중엔 타이머 쪽에서 텍스트를 갱신
+        if (!apiDone) {
+            revealBtn.disabled = true;
+            revealBtn.textContent = '분석 마무리 중...';
+            return;
+        }
+        revealBtn.disabled = false;
+        revealBtn.textContent = '결과 확인하기';
+    }
+
     analyzeBtn.addEventListener('click', async () => {
         if (!selectedDataUrl) return;
 
         uploadSection.style.display = 'none';
         loadingSection.style.display = 'block';
+
+        timerDone = false;
+        apiDone = false;
+        apiResult = null;
+        apiErrorMessage = null;
+        revealBtn.disabled = true;
+        loadingText.textContent = '관상을 분석하는 중...';
+
+        injectAd();
+
+        let secondsLeft = AD_WAIT_SECONDS;
+        revealBtn.textContent = `결과 확인하기 (${secondsLeft})`;
+        countdownInterval = setInterval(() => {
+            secondsLeft -= 1;
+            if (secondsLeft <= 0) {
+                clearInterval(countdownInterval);
+                timerDone = true;
+                updateRevealButton();
+            } else {
+                revealBtn.textContent = `결과 확인하기 (${secondsLeft})`;
+            }
+        }, 1000);
 
         const commaIndex = selectedDataUrl.indexOf(',');
         const header = selectedDataUrl.slice(0, commaIndex);
@@ -442,39 +509,45 @@
             });
             const data = await res.json();
 
-            loadingSection.style.display = 'none';
-
             if (!res.ok || data.error) {
-                alert(data.error || 'AI 분석에 실패했어요. 다시 시도해주세요.');
-                uploadSection.style.display = 'block';
-                return;
+                apiErrorMessage = data.error || 'AI 분석에 실패했어요. 다시 시도해주세요.';
+            } else if (data.hasFace === false) {
+                apiErrorMessage = data.description || '얼굴을 찾지 못했어요. 다른 사진으로 시도해주세요.';
+            } else {
+                const base = RESULTS.find((r) => r.key === data.key) || RESULTS[0];
+                apiResult = {
+                    key: base.key,
+                    name: base.name,
+                    accent: base.accent,
+                    tagline: data.tagline || base.tagline,
+                    description: data.description || base.description,
+                    sections: (data.sections && data.sections.length ? data.sections : base.sections),
+                    secondary: data.secondary || [],
+                    closingMessage: data.closingMessage || base.closingMessage,
+                };
             }
-
-            if (data.hasFace === false) {
-                alert(data.description || '얼굴을 찾지 못했어요. 다른 사진으로 시도해주세요.');
-                uploadSection.style.display = 'block';
-                return;
-            }
-
-            const base = RESULTS.find((r) => r.key === data.key) || RESULTS[0];
-            const result = {
-                key: base.key,
-                name: base.name,
-                accent: base.accent,
-                tagline: data.tagline || base.tagline,
-                description: data.description || base.description,
-                sections: (data.sections && data.sections.length ? data.sections : base.sections),
-                secondary: data.secondary || [],
-                closingMessage: data.closingMessage || base.closingMessage,
-            };
-
-            renderResult(result);
-            resultSection.style.display = 'block';
         } catch (err) {
-            loadingSection.style.display = 'none';
-            uploadSection.style.display = 'block';
-            alert('서버에 연결할 수 없어요. 잠시 후 다시 시도해주세요.');
+            apiErrorMessage = '서버에 연결할 수 없어요. 잠시 후 다시 시도해주세요.';
         }
+
+        apiDone = true;
+        loadingText.textContent = '분석 완료! 버튼을 눌러 결과를 확인하세요.';
+        updateRevealButton();
+    });
+
+    revealBtn.addEventListener('click', () => {
+        if (revealBtn.disabled) return;
+
+        loadingSection.style.display = 'none';
+
+        if (apiErrorMessage) {
+            alert(apiErrorMessage);
+            uploadSection.style.display = 'block';
+            return;
+        }
+
+        renderResult(apiResult);
+        resultSection.style.display = 'block';
     });
 
     function renderResult(result) {
