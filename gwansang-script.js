@@ -254,7 +254,7 @@
     const AD_WAIT_SECONDS = 5;
     // TODO: AdSense에서 실제 광고 유닛을 만들고 슬롯 ID를 여기에 넣어주세요.
     // (AdSense 대시보드 → 광고 단위 → 디스플레이 광고 → 생성 후 나오는 data-ad-slot 값)
-    const AD_SLOT = 'YOUR_AD_SLOT_ID';
+    const AD_SLOT = '3521608846';
 
     const cropSection = document.getElementById('cropSection');
     const cropBox = document.getElementById('cropBox');
@@ -438,12 +438,12 @@
 
     function injectAd() {
         adSlotContainer.innerHTML = '';
-        if (AD_SLOT === 'YOUR_AD_SLOT_ID') return; // 슬롯 ID 미설정 시 광고 영역을 비워둠
+        if (AD_SLOT === '') return; // 슬롯 ID 미설정 시 광고 영역을 비워둠
 
         const ins = document.createElement('ins');
         ins.className = 'adsbygoogle';
         ins.style.display = 'block';
-        ins.setAttribute('data-ad-client', 'ca-pub-2634105661638311');
+        ins.setAttribute('data-ad-client', 'ca-pub-1805602428218907');
         ins.setAttribute('data-ad-slot', AD_SLOT);
         ins.setAttribute('data-ad-format', 'auto');
         ins.setAttribute('data-full-width-responsive', 'true');
